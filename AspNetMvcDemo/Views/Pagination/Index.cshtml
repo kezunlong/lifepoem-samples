@@ -8,8 +8,18 @@
 }
 
 <style type="text/css">
+    /* css for default, bootstrap, fontawesome pagination */
     span.custominfo { position:relative; bottom:8px; right:15px; color: #808080; }
     .pagination { margin: 0; }
+
+    /* css for customized pagination */
+    .paginator { display:inline-block; font: 12px Arial, Helvetica, sans-serif;padding:10px 0 10px 20px; margin: 0px; }
+    .paginator > li { display: inline; }
+    .paginator > li > a {padding: 2px 6px; border: solid 1px #ddd; background: #fff; text-decoration: none; margin-right:2px}
+    .paginator > li > a:visited {padding: 2px 6px; border: solid 1px #ddd; background: #fff; text-decoration: none;}
+    .paginator .cpb { padding: 2px 6px;font-weight: bold; font-size: 12px;border:none}
+    .paginator a:hover {color: #fff; background: #387abb;border-color:#387abb;text-decoration: none;}
+
 </style>
 
 <h2>Employees</h2>
@@ -48,6 +58,28 @@
     <div class="text-right">
         @Html.HyperlinkPagination((WebPagingOption)ViewBag.WebPagingOption, x => Url.Action("Index") + @Html.GetUrl(x), PagingUIFactory.GetFontAwesomeUI())
     </div>
+    <hr />
+    <div class="text-right">
+        @{
+            var uiOption = new PagingUIOption
+            {
+                FirstPageText = "首页",
+                PrevPageText = "上一页",
+                NextPageText = "下一页",
+                LastPageText = "尾页",
+                CssClass = "paginator",
+                PageCssClass = "",
+                CurrentPageCssClass = "cpb",
+                DisablePageCssClass = "disabled",
+                TotalPageLink = 10,
+                CustomInfoHTML = string.Empty,
+                CustomInfoPosition = string.Empty,
+                CustomInfoCssClass = "custominfo"
+            };
+        }
+        @Html.HyperlinkPagination((WebPagingOption)ViewBag.WebPagingOption, x => Url.Action("Index") + @Html.GetUrl(x), uiOption)
+    </div>
+
 </div>
 
 <script type="text/javascript">
