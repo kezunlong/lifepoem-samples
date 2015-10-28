@@ -1,0 +1,75 @@
+﻿@using AspNetMvcDemo.Models;
+@using Lifepoem.Foundation.Web.MVC;
+@using Lifepoem.Foundation.Utilities.Helpers;
+
+@model IEnumerable<Employee>
+@{
+    ViewBag.Title = "Index";
+}
+
+<style type="text/css">
+    span.custominfo { position:relative; bottom:8px; right:15px; color: #808080; }
+    .pagination { margin: 0; }
+</style>
+
+<h2>Employees</h2>
+
+<div id="queryResult">
+    <table class="table table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Telephone</th>
+                <th>Remark</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Email</td>
+                    <td>@item.Telephone</td>
+                    <td>@item.Remark</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
+    <div class="text-right">
+        @Html.HyperlinkPagination((WebPagingOption)ViewBag.WebPagingOption, x => Url.Action("Index") + @Html.GetUrl(x))
+    </div>
+    <hr />
+    <div class="text-right">
+        @Html.HyperlinkPagination((WebPagingOption)ViewBag.WebPagingOption, x => Url.Action("Index") + @Html.GetUrl(x), PagingUIFactory.GetDefaultPagingUI())
+    </div>
+    <hr />
+    <div class="text-right">
+        @Html.HyperlinkPagination((WebPagingOption)ViewBag.WebPagingOption, x => Url.Action("Index") + @Html.GetUrl(x), PagingUIFactory.GetFontAwesomeUI())
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function Search(page) {
+        $("#queryResult").fadeTo(200, 0.2, function () { });
+
+        $.ajax({
+            url: '@Url.Action("ProjectsList")',
+            data: $("form").serialize() + "&page=" + page,
+            type: "get",
+            success: function (data) {
+                $("#queryResult").html(data);
+            },
+            error: function (jqxhr, status, errorMsg) {
+                var exception = $("<div>").addClass("error").text("Status: " + status + " Error: " + errorMsg);
+                $("#queryResult").html(exception);
+            },
+            complete: function (jqxhr, status) {
+                $("#queryResult").fadeTo(500, 1, function () { });
+            }
+        })
+    }
+
+</script>
