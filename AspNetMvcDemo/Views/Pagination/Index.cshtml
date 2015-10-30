@@ -1,6 +1,6 @@
 ﻿@using AspNetMvcDemo.Models;
 @using Lifepoem.Foundation.Web.MVC;
-@using Lifepoem.Foundation.Utilities.Helpers;
+@using Lifepoem.Foundation.Web.Helpers;
 
 @model IEnumerable<Employee>
 @{
@@ -13,13 +13,12 @@
     .pagination { margin: 0; }
 
     /* css for customized pagination */
-    .paginator { display:inline-block; font: 12px Arial, Helvetica, sans-serif;padding:10px 0 10px 20px; margin: 0px; }
+    .paginator { display:inline-block; margin: 0; padding: 0; }
     .paginator > li { display: inline; }
-    .paginator > li > a { padding: 2px 6px; border: solid 1px #ddd; color:#387abb; background: #fff; text-decoration: none; margin-right:4px}
-    /*.paginator > li > a:visited {padding: 2px 6px; border: solid 1px #ddd; background: #fff; text-decoration: none;}*/
-    .paginator >.cpb > a, .paginator >.cpb > a:hover { cursor: default; color:#387abb; background: #fff; padding: 2px 6px;font-weight: bold; font-size: 12px;border:none; }
-    .paginator > li > a:hover {color: #fff; background: #387abb;border-color:#387abb;text-decoration: none;}
-    span.paginator-custominfo { color: #808080; }
+    .paginator > li > a { padding: 2px 6px; border: solid 1px #ddd; color:#387abb; background: #fff; text-decoration: none; margin-right:4px; }
+    .paginator >.cpb > a, .paginator >.cpb > a:hover { cursor: default; color:#387abb; background: #fff; font-weight: bold; border:none; }
+    .paginator > li > a:hover { color: #fff; background: #387abb; border-color:#387abb; }
+    span.paginator-custominfo { color: #808080; margin-right:15px; }
 </style>
 
 <h2>Employees</h2>
@@ -79,6 +78,7 @@
         }
         @Html.HyperlinkPagination((WebPagingOption)ViewBag.WebPagingOption, x => Url.Action("Index") + @Html.GetUrl(x), uiOption)
     </div>
+
 
 </div>
 
